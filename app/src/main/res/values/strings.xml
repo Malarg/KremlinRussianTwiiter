@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">KremlinRussiaTwiiter</string>
+    <string name="twitter_consumer_key">hbJWpcn3dlwSpFPog3C6kRobw</string>
+    <string name="twitter_consumer_secret">X9NNWWLXk2GfWTWn8vRq1L40A7rFQYv0EUmBPp6PmBqmPRQRQZ</string>
+    <string name="access_token">3963791477-OY3c3BLDujy8Y24BggXks8DdJb8JoHIGZg63bgk</string>
+    <string name="access_token_secret">kvNPsMGBcMqyQNMK49tV5cb0uSP6FcHG4c85byEvSmKrF</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
