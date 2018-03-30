@@ -19,7 +19,7 @@ import twitter4j.TwitterException;
  * Created by malar on 29.03.2018.
  */
 
-public class NotificationService extends android.app.Service { // не совсем понял почему, но сервис не запускается
+public class NotificationService extends android.app.Service {
     private static long lastId = -1;
     public int onStartCommand(Intent intent, int flags, int startId) {
         Context ctx = this;
@@ -27,26 +27,27 @@ public class NotificationService extends android.app.Service { // не совс�
             @Override
             public void run() {
                 initIdIfNeed();
+                while(true){
+                    Status lastStatus = getLastStatus();
+                    if (lastStatus.getId() != lastId){
+                        Intent notificationIntent = new Intent(ctx, MainActivity.class);
+                        PendingIntent contentIntent = PendingIntent.getActivity(ctx,
+                                0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
 
-                Status lastStatus = getLastStatus();
-                if (lastStatus.getId() != lastId){
-                    Intent notificationIntent = new Intent(ctx, MainActivity.class);
-                    PendingIntent contentIntent = PendingIntent.getActivity(ctx,
-                            0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "");
+                        builder.setContentIntent(contentIntent)
+                                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                                .setContentTitle("KremlinRussia добавил твит")
+                                .setContentText(lastStatus.getText())
+                                .setAutoCancel(true);
 
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, "");
-                    builder.setContentIntent(contentIntent)
-                            .setSmallIcon(R.drawable.ic_launcher_foreground)
-                            .setContentTitle("KremlinRussia добавил твит")
-                            .setContentText(lastStatus.getText())
-                            .setAutoCancel(true);
+                        NotificationManager notificationManager =
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.notify(1, builder.build());
 
-                    NotificationManager notificationManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(1, builder.build());
-
-                    lastId = lastStatus.getId();
+                        lastId = lastStatus.getId();
+                    }
                     try {
                         Thread.sleep(60000);
                     } catch (InterruptedException e) {

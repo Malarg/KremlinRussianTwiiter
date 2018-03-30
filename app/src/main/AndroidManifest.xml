@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.TweetActivity"></activity>
+        <service android:name=".Services.NotificationService"></service>
     </application>
 
 </manifest>
