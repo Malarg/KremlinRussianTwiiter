@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +37,10 @@ public class PhotosProvider {
         photosListView.removeAllViews();
         for (String url : photosListViewUrls){
             ImageView imageView = new ImageView(photosListView.getContext());
+            params.bottomMargin = 8;
             imageView.setLayoutParams(params);
             photosListView.addView(imageView);
-            Glide
-                    .with(view)
+            Picasso.get()
                     .load(url)
                     .into(imageView);
         }

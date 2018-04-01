@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.malar.kremlinrussiatwiiter.Activities.MainActivity;
 import com.example.malar.kremlinrussiatwiiter.Models.TwitterProvider;
 import com.example.malar.kremlinrussiatwiiter.R;
+import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -122,8 +122,8 @@ public class RetweetFragment extends Fragment {
         ((TextView)getView().findViewById(R.id.retweetTextView)).setText(status.getText());
         ImageView imageView = getView().findViewById(R.id.userAvatarImageView);
 
-        Glide
-                .with(getView())
+        Picasso
+                .get()
                 .load(status.getUser().getMiniProfileImageURL())
                 .into(imageView);
     }
