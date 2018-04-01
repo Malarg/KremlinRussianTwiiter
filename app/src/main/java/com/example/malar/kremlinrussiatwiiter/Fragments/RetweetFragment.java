@@ -68,7 +68,7 @@ public class RetweetFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("accountId", status.getUser().getName());
+                intent.putExtra("accountId",status.getUser().getScreenName());
                 startActivity(intent);
             }
         });
@@ -124,7 +124,7 @@ public class RetweetFragment extends Fragment {
 
         Picasso
                 .get()
-                .load(status.getUser().getMiniProfileImageURL())
+                .load(status.getUser().getProfileImageURL())
                 .into(imageView);
     }
 }
