@@ -19,6 +19,7 @@ import twitter4j.TwitterException;
  * Created by malar on 29.03.2018.
  */
 
+//не протестировано
 public class NotificationService extends android.app.Service {
     private static long lastId = -1;
     public int onStartCommand(Intent intent, int flags, int startId) {

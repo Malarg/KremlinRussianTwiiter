@@ -23,7 +23,7 @@ import twitter4j.ExtendedMediaEntity;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
-public class TweetActivity extends AppCompatActivity implements RetweetFragment.OnFragmentInteractionListener {
+public class TweetActivity extends AppCompatActivity{
     private Status status;
     private List<Status> retweets;
     @Override
@@ -45,7 +45,7 @@ public class TweetActivity extends AppCompatActivity implements RetweetFragment.
                 .just("")
                 .observeOn(Schedulers.newThread())
                 .map(s -> TwitterProvider.getInstance().getRetweets(status.getId()))
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> retweets = s, s -> {}, () -> onGotRetweets());
     }
 
@@ -63,26 +63,21 @@ public class TweetActivity extends AppCompatActivity implements RetweetFragment.
         PhotosProvider.getInstance().loadPhotos(tweet, findViewById(R.id.tweetRootLayout), R.id.photosLinearLayout);
     }
 
-    private void loadStatus(long id){ //есть ощущение, что это не лучший способ, как это можно сделать, ибо хранить в классе лишнюю глобальную переменную не есть хорошо
+    private void loadStatus(long id){
         io.reactivex.Observable
-                .just("") //сделано для того, чтобы обращение по api шло в другом потоке
+                .just("")
                 .observeOn(Schedulers.newThread())
                 .map(s -> TwitterProvider.getInstance().showStatus(id))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status1 -> status = status1,s -> {},() -> onStatusLoaded());
     }
 
-    private List<Multimedia> mapUrlMedias(ExtendedMediaEntity[] mediaEntities){ //это можно было сделать красиво через лямбды, но поднимать минимальную версию до 7.0 нет желания
+    private List<Multimedia> mapUrlMedias(ExtendedMediaEntity[] mediaEntities){
         List<Multimedia> mappedMultimedia = new ArrayList<>();
         for (ExtendedMediaEntity entity : mediaEntities) {
             Multimedia multimedia = new Multimedia(entity.getMediaURLHttps(), entity.getType());
             mappedMultimedia.add(multimedia);
         }
         return mappedMultimedia;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

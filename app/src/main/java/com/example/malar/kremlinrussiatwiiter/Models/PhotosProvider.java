@@ -30,9 +30,6 @@ public class PhotosProvider {
         LinearLayout.LayoutParams params = new LinearLayout
                 .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         List<String> photosListViewUrls = getMultimediasURL(filterMultimediaByType(tweet.getMultimediaList(), Multimedia.MultimediaType.Photo));
-        //List<String> photosListViewUrls = tweet.getMultimediaList().stream()
-        //        .filter(multimedia -> multimedia.getType() == Multimedia.MultimediaType.Photo)
-        //        .map(multimedia -> multimedia.getUrl());
         LinearLayout photosListView = (LinearLayout) view.findViewById(photosLayoutId);
         photosListView.removeAllViews();
         for (String url : photosListViewUrls){

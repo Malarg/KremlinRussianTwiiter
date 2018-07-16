@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateView(){
+    private void updateView() {
         try {
             viewModel.getTweets().observeOn(AndroidSchedulers.mainThread()).firstElement().subscribe(tweets ->
             {
